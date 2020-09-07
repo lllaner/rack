@@ -6,7 +6,7 @@ class App
     if @request.path_info == '/time'
      build_format
     else
-      [404, headers, ['Page Not found']]
+      build_response('Page not found', 404)
     end
   end
 
