@@ -17,9 +17,9 @@ class FormatTime
   def call
     parse
     if @unknown_params.empty?
-      Rack::Response.new(Time.now.strftime(@time), 200, { 'Content-Type' => 'text/plain' }).finish
+      [200, [Time.now.strftime(@time)]]
     else
-      Rack::Response.new("Unknown time format #{@unknown_params}", 400, { 'Content-Type' => 'text/plain' }).finish
+      [400, ["Unknown time format:#{@unknown_params}"]]
     end
   end
 
