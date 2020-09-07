@@ -36,5 +36,4 @@ class FormatTime
   def errors
     "Unknown params: #{@unknown_params}"
   end
-
 end
