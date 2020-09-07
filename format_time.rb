@@ -1,4 +1,5 @@
 class FormatTime
+
   FORMATS = {
     'year' => '%Y-',
     'month' => '%m-',
@@ -16,13 +17,19 @@ class FormatTime
 
   def call
     parse
-    if @unknown_params.empty?
-      [200, [Time.now.strftime(@time)]]
-    else
-      [400, ["Unknown time format:#{@unknown_params}"]]
-    end
   end
 
+  def success?
+    @unknown_params.empty?
+  end
+
+  def time
+    Time.now.strftime(@time)
+  end
+
+  def errors
+    "Unknown params: #{@unknown_params}"
+  end
   private
 
   def parse

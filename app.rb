@@ -15,8 +15,18 @@ class App
   def headers
     { 'Content-Type' => 'text/plain' }
   end
+
   def build_format
-    status, body =  FormatTime.new(@request).call
-    [status, headers, body]
+    format_time =  FormatTime.new(@request)
+    format_time.call
+    if format_time.success?
+      build_response(format_time.time, 200)
+    else
+      build_response(format_time.errors, 400)
+    end
+  end
+
+  def build_response(body, status)
+    Rack::Response.new(body, status, headers).finish
   end
 end
