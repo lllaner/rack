@@ -18,7 +18,7 @@ class App
 
   def build_format
     format_time =  FormatTime.new(@request)
-    format_time.call
+    format_time.parse
     if format_time.success?
       build_response(format_time.time, 200)
     else

@@ -15,8 +15,14 @@ class FormatTime
     @time = ''
   end
 
-  def call
-    parse
+  def parse
+    @params.each do |value|
+      if FORMATS[value]
+        @time += FORMATS[value]
+      else
+        @unknown_params << value
+      end
+    end
   end
 
   def success?
@@ -29,17 +35,6 @@ class FormatTime
 
   def errors
     "Unknown params: #{@unknown_params}"
-  end
-  private
-
-  def parse
-    @params.each do |value|
-      if FORMATS[value]
-        @time += FORMATS[value]
-      else
-        @unknown_params << value
-      end
-    end
   end
 
 end
